@@ -1,27 +1,69 @@
+@use "../abstracts";
 %flexItemCenter {
     display: flex;
     align-items: center;
 }
 
 .header {
-    background: #eeeeee;
-    padding: 30px;
+    background: var(--header-bg-color);
+    @include abstracts.breakpoint(lg) {
+        box-shadow: 0px 20px 60px 10px var(--header-shadow-lg);
+    }
 }
 
 .top-bar {
     @extend %flexItemCenter;
+    position: relative;
+    padding: 30px 0;
+
+    @include abstracts.breakpoint(lg) {
+        padding: 20px 0;
+    }
+
+    @include abstracts.breakpoint(sm) {
+        justify-content: space-between;
+        padding: 16px 0;
+    }
+    @include abstracts.breakpoint(md) {
+        justify-content: space-between;
+    }
+    &__more {
+        display: none;
+        @include abstracts.breakpoint(lg) {
+            display: block;
+        }
+    }
 }
 
 .navbar {
-    margin-right: auto;
     margin-left: 144px;
+
+    @include abstracts.breakpoint(xl) {
+        margin-left: 60px;
+    }
     &__list {
         @extend %flexItemCenter;
-        column-gap: 30px;
+
+        @include abstracts.breakpoint(lg) {
+            display: none;
+        }
+    }
+    &__item {
+        &:first-child a {
+            padding-left: 0;
+        }
+        &:last-child a {
+            padding-right: 0;
+        }
+        &:hover .dropdown {
+            display: block;
+        }
     }
     &__link {
         @extend %flexItemCenter;
-        color: #1a162e;
+        height: 50px;
+        padding: 0 15px;
+        color: var(--text-color);
         font-size: 1.5rem;
         font-weight: 500;
         line-height: 1.46;
@@ -34,19 +76,43 @@
 .top-act {
     @extend %flexItemCenter;
     column-gap: 20px;
+    margin-left: auto;
+    padding: 16px 0;
+
+    @include abstracts.breakpoint(sm) {
+        margin-left: 0;
+    }
+    @include abstracts.breakpoint(md) {
+        margin-left: 0;
+    }
     &__group {
         @extend %flexItemCenter;
-
+        justify-content: center;
         height: 50px;
         min-width: 50px;
 
         border-radius: 8px;
-        background: #fff;
-        box-shadow: 0px 20px 60px 10px rgba(237, 237, 246, 0.2);
+        background: var(--top-act-group-bg);
+        box-shadow: 0px 20px 60px 10px var(--top-act-group-shadow);
+
+        @include abstracts.breakpoint(md) {
+            display: none;
+        }
+
+        @include abstracts.breakpoint(sm) {
+            display: none;
+        }
     }
 
+    &__group--single {
+        @include abstracts.breakpoint(lg) {
+            display: none;
+        }
+    }
     &__group--single &__btn {
+        border-radius: inherit;
         padding: 13px;
+        background: var(--top-act-group-bg);
     }
     &__btn {
         padding: 13px 20px;
@@ -57,10 +123,10 @@
     &__line {
         width: 1px;
         height: 30px;
-        background: #ededf6;
+        background: var(--top-act-line-bg);
     }
     &__title {
-        color: #1a162e;
+        color: var(--text-color);
         font-size: 1.5rem;
         font-weight: 500;
         line-height: 1.46;
